@@ -1,4 +1,4 @@
-package com.iavariav.kbmonline.metode;
+package com.iavariav.kbmonline.algoritma;
 
 public class Haversine {
 

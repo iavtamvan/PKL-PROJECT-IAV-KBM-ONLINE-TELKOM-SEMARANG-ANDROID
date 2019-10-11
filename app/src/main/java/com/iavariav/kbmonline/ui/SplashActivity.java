@@ -7,11 +7,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.iavariav.kbmonline.R;
 import com.iavariav.kbmonline.helper.Config;
-import com.iavariav.kbmonline.ui.atasan.AtasanActivity;
+import com.iavariav.kbmonline.ui.atasan.activity.AtasanActivity;
 import com.iavariav.kbmonline.ui.login.LoginActivity;
 import com.iavariav.kbmonline.ui.user.UserActivity;
 

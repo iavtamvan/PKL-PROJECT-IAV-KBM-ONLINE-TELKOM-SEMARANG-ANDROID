@@ -11,10 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iavariav.kbmonline.R;
-import com.iavariav.kbmonline.model.PemesananModel;
 import com.iavariav.kbmonline.ui.atasan.presenter.AprovalPresenter;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -9,7 +9,7 @@ import com.iavariav.kbmonline.helper.Config;
 import com.iavariav.kbmonline.model.LoginModel;
 import com.iavariav.kbmonline.rest.ApiConfig;
 import com.iavariav.kbmonline.rest.ApiService;
-import com.iavariav.kbmonline.ui.atasan.AtasanActivity;
+import com.iavariav.kbmonline.ui.atasan.activity.AtasanActivity;
 import com.iavariav.kbmonline.ui.user.UserActivity;
 
 import okhttp3.ResponseBody;
@@ -34,6 +34,7 @@ public class LoginPresenter {
                             editor.putString(Config.SHARED_PREF_ID, loginModel.getId());
                             editor.putString(Config.SHARED_PREF_NAMA_LENGKAP, loginModel.getUsername());
                             editor.putString(Config.SHARED_PREF_RULE, loginModel.getRule());
+                            editor.putString(Config.SHARED_PREF_KEY_ENCRYPT, loginModel.getKey());
                             editor.apply();
                             String regID = sharedPreferences.getString("regId", "");
                             updateRegID(context, regID, loginModel.getId());
@@ -64,6 +65,7 @@ public class LoginPresenter {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()){
 //                            Toast.makeText(context, "Berhasil reg id", Toast.LENGTH_SHORT).show();
+                            ((LoginActivity)context).finishAffinity();
                         }
                     }
 

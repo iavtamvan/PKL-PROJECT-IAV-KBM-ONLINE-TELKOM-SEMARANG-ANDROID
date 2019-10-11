@@ -28,6 +28,7 @@ public final class Config {
     public static final String SHARED_PREF_RULE = "KBM_RULE";
     public static final String SHARED_PREF_REGID_FIREBASE = "KBM_REGID_FIREBASE";
     public static final String SHARED_PREF_ERROR_MSG = "KBM_ERROR_MSG";
+    public static final String SHARED_PREF_KEY_ENCRYPT = "KBM_KEY_ENCRYPT";
 
     // global topic to receive app wide push notifications
     public static final String TOPIC_GLOBAL = "global";
@@ -39,6 +40,31 @@ public final class Config {
     // id to handle the notification in the notification tray
     public static final int NOTIFICATION_ID = 100;
     public static final int NOTIFICATION_ID_BIG_IMAGE = 101;
+
+
+    public static final String BUNDLE_JENIS_KEPERLUAN = "BUNDLE_JENIS_KEPERLUAN";
+    public static final String BUNDLE_JENIS_PEMESANAN = "BUNDLE_JENIS_PEMESANAN";
+    public static final String BUNDLE_JENIS_KENDARAAN = "BUNDLE_JENIS_KENDARAAN";
+    public static final String BUNDLE_KEBERANGKATAN_KAWASAN = "BUNDLE_KEBERANGKATAN_KAWASAN";
+    public static final String BUNDLE_KEBERANGKATAN_WITEL = "BUNDLE_KEBERANGKATAN_WITEL";
+    public static final String BUNDLE_KEBERANGKATAN_AREA_POOL = "BUNDLE_KEBERANGKATAN_AREA_POOL";
+    public static final String BUNDLE_TUJUAN_ALAMAT_JEMPUT = "BUNDLE_TUJUAN_ALAMAT_JEMPUT";
+    public static final String BUNDLE_TUJUAN_AREA = "BUNDLE_TUJUAN_AREA";
+    public static final String BUNDLE_TUJUAN_ALAMAT_DETAIL_MAPS = "BUNDLE_TUJUAN_ALAMAT_DETAIL_MAPS";
+    public static final String BUNDLE_LAT_AWAL = "BUNDLE_LAT_AWAL";
+    public static final String BUNDLE_LONG_AWAL = "BUNDLE_LONG_AWAL";
+    public static final String BUNDLE_LAT_TUJUAN = "BUNDLE_LAT_TUJUAN";
+    public static final String BUNDLE_LONG_TUJUAN = "BUNDLE_LONG_TUJUAN";
+    public static final String BUNDLE_WAKTU_KEBERANGKATAN = "BUNDLE_WAKTU_KEBERANGKATAN";
+    public static final String BUNDLE_WAKTU_KEPULANGAN = "BUNDLE_WAKTU_KEPULANGAN";
+    public static final String BUNDLE_NO_TELEPON_KANTOR = "BUNDLE_NO_TELEPON_KANTOR";
+    public static final String BUNDLE_NO_HP = "BUNDLE_NO_HP";
+    public static final String BUNDLE_JUMLAH_PENUMPANG = "BUNDLE_JUMLAH_PENUMPANG";
+    public static final String BUNDLE_ISI_PENUMPANG = "BUNDLE_ISI_PENUMPANG";
+    public static final String BUNDLE_KETERANGAN = "BUNDLE_KETERANGAN";
+    public static final String BUNDLE_JARAK_PER_KM = "BUNDLE_JARAK_PER_KM";
+    public static final String BUNDLE_BENSIN_PER_LITER = "BUNDLE_BENSIN_PER_LITER";
+    public static final String BUNDLE_REG_TOKEN_PEMESANAN = "BUNDLE_REG_TOKEN_PEMESANAN";
 
 
     public static void sharedPref(Context context, String idUser, String username, String rule) {

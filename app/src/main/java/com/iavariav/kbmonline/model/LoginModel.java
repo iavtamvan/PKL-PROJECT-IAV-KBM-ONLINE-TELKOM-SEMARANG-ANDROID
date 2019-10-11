@@ -19,6 +19,18 @@ public class LoginModel{
 	@SerializedName("username")
 	private String username;
 
+	@SerializedName("key")
+	private String key;
+
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
 	public void setErrorMsg(String errorMsg){
 		this.errorMsg = errorMsg;
 	}

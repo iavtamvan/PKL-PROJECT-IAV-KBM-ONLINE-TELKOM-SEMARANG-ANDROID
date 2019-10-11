@@ -1,21 +1,22 @@
 package com.iavariav.kbmonline.ui.atasan.adapter
 
 import android.content.Context
-import android.content.SharedPreferences
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
 import com.iavariav.kbmonline.R
 import com.iavariav.kbmonline.helper.Config
 import com.iavariav.kbmonline.model.PemesananModel
 import com.iavariav.kbmonline.rest.ApiConfig
-import com.iavariav.kbmonline.rest.ApiService
-import com.iavariav.kbmonline.ui.atasan.AtasanActivity
+import com.iavariav.kbmonline.ui.atasan.activity.AtasanActivity
+import com.iavariav.kbmonline.ui.atasan.activity.EditPemesananActivity
 
 import org.json.JSONException
 import org.json.JSONObject
@@ -28,7 +29,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AtasanAprovalAdapter(private val context: Context, private val PemesananModels: ArrayList<PemesananModel>) : RecyclerView.Adapter<AtasanAprovalAdapter.ViewHolder>() {
+class AtasanAprovalAdapter(private val context: Context, private val pemesananModels: ArrayList<PemesananModel>) : RecyclerView.Adapter<AtasanAprovalAdapter.ViewHolder>() {
     private var id: String? = null
     private var regId: String? = null
 
@@ -40,35 +41,62 @@ class AtasanAprovalAdapter(private val context: Context, private val PemesananMo
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val sharedPreferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE)
         id = sharedPreferences.getString(Config.SHARED_PREF_ID, "")
-        holder.tvRegToken.text = PemesananModels[position].regtokenpemesanan
-        holder.tvNama.text = PemesananModels[position].namapemesan
-        holder.tvJenisKeperluan.text = PemesananModels[position].jeniskeperluan
-        holder.tvJenisPemesanan.text = PemesananModels[position].jenispemesanan
-        holder.tvKm.text = PemesananModels[position].jarakperkm + "\n KM"
-        holder.tvKeberangkatan.text = PemesananModels[position].keberangkatanareapool
-        holder.tvWaktuKeberangkatan.text = PemesananModels[position].waktukeberangkatan
-        holder.tvTujuan.text = PemesananModels[position].tujuanalamatjemput
-        holder.tvWaktuTujuan.text = PemesananModels[position].waktukepulangan
-        holder.tvIsiPenumpang.text = PemesananModels[position].isipenumpang
-        holder.tvKeternangan.text = PemesananModels[position].keterangan
-        holder.tvStatus.text = PemesananModels[position].statuspemesanan
+        holder.tvRegToken.text = pemesananModels[position].regtokenpemesanan
+        holder.tvNama.text = pemesananModels[position].namapemesan
+        holder.tvJenisKeperluan.text = pemesananModels[position].jeniskeperluan
+        holder.tvJenisPemesanan.text = pemesananModels[position].jenispemesanan
+        holder.tvKm.text = pemesananModels[position].jarakperkm + "\n KM"
+        holder.tvKeberangkatan.text = pemesananModels[position].keberangkatanareapool
+        holder.tvWaktuKeberangkatan.text = pemesananModels[position].waktukeberangkatan
+        holder.tvTujuan.text = pemesananModels[position].tujuanalamatjemput
+        holder.tvWaktuTujuan.text = pemesananModels[position].waktukepulangan
+        holder.tvIsiPenumpang.text = pemesananModels[position].isipenumpang
+        holder.tvKeternangan.text = pemesananModels[position].keterangan
+        holder.tvStatus.text = pemesananModels[position].statuspemesanan
 
-        regId = PemesananModels[position].regid
-        val jarakKm = PemesananModels[position].jarakperkm
+        regId = pemesananModels[position].regid
+        val jarakKm = pemesananModels[position].jarakperkm
         //        double hitungLiter = Integer.parseInt(jarakKm)/ 11.6;
-        //        double hitugHargaBBM = hitungLiter * Integer.parseInt(PemesananModels.get(position).getBENSINPERLITER());
+        //        double hitugHargaBBM = hitungLiter * Integer.parseInt(pemesananModels.get(position).getBENSINPERLITER());
 
-        holder.tvHargaBbm.text = "RP." + PemesananModels[position].bensinperliter
+        holder.tvHargaBbm.text = "RP." + pemesananModels[position].bensinperliter
 
         // jika disetujui
         holder.ivDisetujui.setOnClickListener {
-            //                Toast.makeText(context, "Disetujui" + PemesananModels.get(position).getIDPEMESANAN() + "id : " + id, Toast.LENGTH_SHORT).show();
-            updateDatas(PemesananModels[position].idpemesanan, id, "APPROVED", "Pesanan anda disetujui Pimpinan")
+            //                Toast.makeText(context, "Disetujui" + pemesananModels.get(position).getIDPEMESANAN() + "id : " + id, Toast.LENGTH_SHORT).show();
+            updateDatas(pemesananModels[position].idpemesanan, id, "APPROVED", "Pesanan anda disetujui Pimpinan")
         }
 
         // jika ditolak
-        holder.ivDitolak.setOnClickListener { updateDatas(PemesananModels[position].idpemesanan, id, "NOT APROVVED", "Pesanan anda ditolak oleh Pimpinan") }
+        holder.ivDitolak.setOnClickListener { updateDatas(pemesananModels[position].idpemesanan, id, "NOT APROVVED", "Pesanan anda ditolak oleh Pimpinan") }
 
+        holder.cvKlik.setOnClickListener {
+            val intent = Intent(context, EditPemesananActivity::class.java)
+            intent.putExtra(Config.BUNDLE_JENIS_KEPERLUAN, pemesananModels[position].jeniskeperluan)
+            intent.putExtra(Config.BUNDLE_JENIS_PEMESANAN, pemesananModels[position].jenispemesanan)
+            intent.putExtra(Config.BUNDLE_JENIS_KENDARAAN, pemesananModels[position].jeniskendaraan)
+            intent.putExtra(Config.BUNDLE_KEBERANGKATAN_KAWASAN, pemesananModels[position].keberangkatankawasan)
+            intent.putExtra(Config.BUNDLE_KEBERANGKATAN_WITEL, pemesananModels[position].keberangkatanwitel)
+            intent.putExtra(Config.BUNDLE_KEBERANGKATAN_AREA_POOL, pemesananModels[position].keberangkatanareapool)
+            intent.putExtra(Config.BUNDLE_TUJUAN_ALAMAT_JEMPUT, pemesananModels[position].tujuanalamatjemput)
+            intent.putExtra(Config.BUNDLE_TUJUAN_AREA, pemesananModels[position].tujuanarea)
+            intent.putExtra(Config.BUNDLE_TUJUAN_ALAMAT_DETAIL_MAPS, pemesananModels[position].tujuanalamatdetailmaps)
+            intent.putExtra(Config.BUNDLE_LAT_AWAL, pemesananModels[position].latawal)
+            intent.putExtra(Config.BUNDLE_LONG_AWAL, pemesananModels[position].longawal)
+            intent.putExtra(Config.BUNDLE_LAT_TUJUAN, pemesananModels[position].lattujuan)
+            intent.putExtra(Config.BUNDLE_LONG_TUJUAN, pemesananModels[position].longtujuan)
+            intent.putExtra(Config.BUNDLE_WAKTU_KEBERANGKATAN, pemesananModels[position].waktukeberangkatan)
+            intent.putExtra(Config.BUNDLE_WAKTU_KEPULANGAN, pemesananModels[position].waktukepulangan)
+            intent.putExtra(Config.BUNDLE_NO_TELEPON_KANTOR, pemesananModels[position].noteleponkantor)
+            intent.putExtra(Config.BUNDLE_NO_HP, pemesananModels[position].nohp)
+            intent.putExtra(Config.BUNDLE_JUMLAH_PENUMPANG, pemesananModels[position].jumlahpenumpang)
+            intent.putExtra(Config.BUNDLE_ISI_PENUMPANG, pemesananModels[position].isipenumpang)
+            intent.putExtra(Config.BUNDLE_KETERANGAN, pemesananModels[position].keterangan)
+            intent.putExtra(Config.BUNDLE_JARAK_PER_KM, pemesananModels[position].jarakperkm)
+            intent.putExtra(Config.BUNDLE_BENSIN_PER_LITER, pemesananModels[position].bensinperliter)
+            intent.putExtra(Config.BUNDLE_REG_TOKEN_PEMESANAN, pemesananModels[position].regtokenpemesanan)
+            context?.startActivity(intent)
+        }
 
     }
 
@@ -98,7 +126,7 @@ class AtasanAprovalAdapter(private val context: Context, private val PemesananMo
     }
 
     override fun getItemCount(): Int {
-        return PemesananModels.size
+        return pemesananModels.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -118,6 +146,7 @@ class AtasanAprovalAdapter(private val context: Context, private val PemesananMo
         val tvStatus: TextView
         val ivDisetujui: ImageView
         val ivDitolak: ImageView
+        val cvKlik: CardView
 
         init {
             tvRegToken = itemView.findViewById(R.id.tv_reg_token)
@@ -135,6 +164,7 @@ class AtasanAprovalAdapter(private val context: Context, private val PemesananMo
             tvStatus = itemView.findViewById(R.id.tv_status)
             ivDisetujui = itemView.findViewById(R.id.iv_disetujui)
             ivDitolak = itemView.findViewById(R.id.iv_ditolak)
+            cvKlik = itemView.findViewById(R.id.cv_klik)
         }
     }
 }

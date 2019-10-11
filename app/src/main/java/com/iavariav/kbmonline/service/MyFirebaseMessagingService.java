@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
@@ -148,7 +149,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "NOTIFICATION_CHANNEL_NAME", importance);

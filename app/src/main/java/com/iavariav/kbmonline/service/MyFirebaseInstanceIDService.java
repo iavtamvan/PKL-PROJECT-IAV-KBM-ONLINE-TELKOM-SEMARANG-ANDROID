@@ -23,7 +23,7 @@ public class MyFirebaseInstanceIDService extends IntentService {
     }
 
     private void storeRegIdInPref(String token) {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF_NAME, 0);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("regId", token);
         editor.apply();

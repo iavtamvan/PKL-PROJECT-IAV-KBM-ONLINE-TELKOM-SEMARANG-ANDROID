@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.user.fragment.PemesananMobilFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Jenis Keperluan"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bree_serif"/>
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/spn_jenis_keperluan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-- Pilih --"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorView"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Jenis Pemesanan"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bree_serif"/>
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/spn_jenis_pemesanan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-- Pilih --"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorView"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mobil"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bree_serif"/>
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/spn_jenis_mobil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-- Pilih --"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorView"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Keberangkatan"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bree_serif"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="-> Kawasan"
+                        android:paddingLeft="8dp"
+                        android:textSize="10dp"
+                        android:fontFamily="@font/bree_serif"/>
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spn_kawasan"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="-- Pilih --"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="-> Witel"
+                        android:paddingLeft="8dp"
+                        android:textSize="10dp"
+                        android:fontFamily="@font/bree_serif"/>
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spn_witel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="-- Pilih --"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="-> Area Pool"
+                        android:paddingLeft="8dp"
+                        android:textSize="10dp"
+                        android:fontFamily="@font/bree_serif"/>
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spn_area_pool"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="-- Pilih --"/>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorView"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tujuan"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bree_serif"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Alamat Penjemputan"
+                            android:id="@+id/edt_penjemputan"
+                            android:inputType="text"
+                            android:fontFamily="@font/bree_serif"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="-> Area Tujuan"
+                        android:paddingLeft="8dp"
+                        android:textSize="10dp"
+                        android:fontFamily="@font/bree_serif"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:id="@+id/spn_area_tujuan_kawasan"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="-- Pilih Kawasan --"/>
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:id="@+id/spn_area_tujuan"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="-- Pilih --"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Alamat Detail"
+                            android:gravity="center|left"
+                            android:id="@+id/tv_alamat_detail"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/bree_serif"/>
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:id="@+id/btn_loc_detail"
+                            android:text="Cek\nLokasi"
+                            android:background="@color/colorYellow"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Jumlah Penumpang"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/bree_serif"/>
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:id="@+id/spn_jumlah_penumpang"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="-- Pilih --"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Isi Penjemputan"
+                                android:id="@+id/edt_isi_penumpang"
+                                android:fontFamily="@font/bree_serif"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorView"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Waktu Keberangkatan"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bree_serif"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="4dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:id="@+id/div_tanggal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tanggal"
+                            android:textSize="12dp"
+                            android:id="@+id/tv_tanggal"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/bree_serif"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Ketuk untuk memilih tanggal"
+                            android:gravity="center"
+                            android:textSize="9dp"
+                            android:id="@+id/tv_ketuk_tanggal_hide"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/bree_serif"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:id="@+id/div_waktu">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Waktu"
+                            android:textSize="12dp"
+                            android:id="@+id/tv_waktu"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/bree_serif"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Ketuk untuk memilih waktu"
+                            android:gravity="center"
+                            android:textSize="9dp"
+                            android:id="@+id/tv_ketuk_waktu_hide"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/bree_serif"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorView"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Waktu Kepulangan"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bree_serif"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="4dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:id="@+id/div_tanggal_kepulangan">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tanggal"
+                            android:textSize="12dp"
+                            android:id="@+id/tv_tanggal_kepulangan"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/bree_serif"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Ketuk untuk memilih tanggal"
+                            android:gravity="center"
+                            android:textSize="9dp"
+                            android:id="@+id/tv_ketuk_tanggal_hide_kepulangan"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/bree_serif"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:id="@+id/div_waktu_kepulangan">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Waktu"
+                            android:textSize="12dp"
+                            android:id="@+id/tv_waktu_kepulangan"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/bree_serif"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Ketuk untuk memilih waktu"
+                            android:gravity="center"
+                            android:textSize="9dp"
+                            android:id="@+id/tv_ketuk_waktu_hide_kepulangan"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/bree_serif"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorView"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Komunikasi"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bree_serif"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="No. Telepon Kantor"
+                            android:inputType="number"
+                            android:id="@+id/edt_no_telepon_kantor"
+                            android:fontFamily="@font/bree_serif"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/edt_no_hp"
+                            android:inputType="number"
+                            android:hint="No. HP"
+                            android:fontFamily="@font/bree_serif"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorView"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Keterangan"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bree_serif"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Keterangan"
+                        android:id="@+id/edt_keterangan"
+                        android:fontFamily="@font/bree_serif"/>
+                </com.google.android.material.textfield.TextInputLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorView"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Atasan"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bree_serif"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Atasan"
+                    android:paddingLeft="10dp"
+                    android:id="@+id/tv_nama_atasan"
+                    android:textSize="10dp"
+                    android:fontFamily="@font/bree_serif"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorView"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Token Pemesanan"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bree_serif"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Token Pemesanan"
+                    android:paddingLeft="10dp"
+                    android:textColor="@android:color/holo_green_light"
+                    android:id="@+id/tv_token_pemesanan"
+                    android:textSize="10dp"
+                    android:fontFamily="@font/bree_serif"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorView"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Status"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bree_serif"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Not Approval"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:paddingLeft="10dp"
+                    android:textSize="10dp"
+                    android:fontFamily="@font/bree_serif"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorView"/>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="200dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/colorBtn"
+                android:id="@+id/btn_pesan_sekarang"
+                android:text="pesan sekarang !"
+                android:textColor="@android:color/white"
+                android:textSize="20dp"
+                android:fontFamily="@font/bree_serif"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

@@ -1,4 +1,4 @@
-package com.iavariav.kbmonline.ui.atasan;
+package com.iavariav.kbmonline.ui.atasan.activity;
 
 import android.os.Bundle;
 

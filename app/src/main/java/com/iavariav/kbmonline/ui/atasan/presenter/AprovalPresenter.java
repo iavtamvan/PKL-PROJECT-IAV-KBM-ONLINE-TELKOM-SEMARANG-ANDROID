@@ -1,5 +1,6 @@
 package com.iavariav.kbmonline.ui.atasan.presenter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -28,12 +29,13 @@ public class AprovalPresenter {
         ApiService apiService = ApiConfig.getApiService();
         apiService.getAllData("getAllDataPemesanan")
                 .enqueue(new Callback<ArrayList<PemesananModel>>() {
+                    @SuppressLint("WrongConstant")
                     @Override
                     public void onResponse(Call<ArrayList<PemesananModel>> call, Response<ArrayList<PemesananModel>> response) {
                         if (response.isSuccessful()){
                             PemesananModels = response.body();
                             atasanAprovalAdapter = new AtasanAprovalAdapter(context, PemesananModels);
-                            rv.setLayoutManager(new LinearLayoutManager(context));
+                            rv.setLayoutManager(new LinearLayoutManager(context, LinearLayout.VERTICAL, false));
                             rv.setAdapter(atasanAprovalAdapter);
                             atasanAprovalAdapter.notifyDataSetChanged();
 

@@ -2,11 +2,6 @@ package com.iavariav.kbmonline.ui.user;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.view.View;
-
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
@@ -49,6 +44,7 @@ public class UserActivity extends AppCompatActivity
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fm_view_pager_nav, new PemesananMobilFragment()).commit();
         getSupportActionBar().setTitle("Data KBM-ONLINE");
+
     }
 
     @Override

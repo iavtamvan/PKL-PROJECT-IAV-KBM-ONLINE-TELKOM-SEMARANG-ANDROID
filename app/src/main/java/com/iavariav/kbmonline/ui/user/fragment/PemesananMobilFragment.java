@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +30,9 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.material.snackbar.Snackbar;
 import com.iavariav.kbmonline.R;
 import com.iavariav.kbmonline.helper.Config;
+import com.iavariav.kbmonline.helper.Vigenere;
 import com.iavariav.kbmonline.metode.Haversine;
 import com.iavariav.kbmonline.model.MobilModel;
-import com.iavariav.kbmonline.model.PemesananModel;
 import com.iavariav.kbmonline.rest.ApiConfig;
 import com.iavariav.kbmonline.rest.ApiService;
 import com.iavariav.kbmonline.ui.user.presenter.PemesananUserPresenter;
@@ -60,10 +62,10 @@ import static java.lang.Math.sin;
 public class PemesananMobilFragment extends Fragment {
     private String jeniskeperluan[] = {"-- PILIH --", "Reguler", "Sosial", "Event", "CAM", "Emergency", "Penanganan Gangguan", "Direksi"};
     private String jenisPemesanan[] = {"-- PILIH --", "MOBIL", "MOBIL & SOPIR", "SOPIR"};
-    private String kawasan[] = {"-- PILIH --", "JABAR-BANTEN", "JABODETABEK", "JATEN-DIY", "JATIM-BALI-NUSA", "KALIMANTAN", "PAMASULA"};
+    private String kawasan[] = {"-- PILIH --", "JABAR-BANTEN", "JABODETABEK", "JATENG-DIY", "JATIM-BALI-NUSA", "KALIMANTAN", "PAMASULA"};
     private String witel[] = {"-- PILIH --", "Jateng Barut", "Jateng Barsel", "Jateng Utara", "Jateng Timur", "Jateng Tengah", "Jateng Selatan", "DI YOgyakarta", "Jateng Timsel"};
     private String areaPool[] = {"-- PILIH --", "SMG Johar", "SMG Pahlawan"};
-    private String areaTujuanKawasan[] = {"-- PILIH --", "JABAR-BANTEN", "JABODETABEK", "JATEN-DIY", "JATIM-BALI-NUSA", "KALIMANTAN", "PAMASULA"};
+    private String areaTujuanKawasan[] = {"-- PILIH --", "JABAR-BANTEN", "JABODETABEK", "JATENG-DIY", "JATIM-BALI-NUSA", "KALIMANTAN", "PAMASULA"};
     private String areaTujuanKawasanPilhan[] = {"-- PILIH --", "KS Sudirman", "MGL Yos Sudarso", "PK Merak", "PK Pemuda", "PWT Merdeka", "SLA Diponegoro", "SMH Johar", "SMG Pahlawan", "SLO Mayor Kusmanto", "Yogyakarta", "Lainnya"};
     private String jumlahIsiPenumpang[] = {"-- PILIH --", "1", "2", "3", "4", "5"};
 
@@ -71,6 +73,7 @@ public class PemesananMobilFragment extends Fragment {
     private String namaPemesan;
     private String idUser;
     private String regID;
+    private String keyEncrypt;
 
     private String placeNameAdress;
     private String placeName;
@@ -84,6 +87,32 @@ public class PemesananMobilFragment extends Fragment {
     private String areaTujuanKawasanSave;
     private String areaTujuanKawasanPilhanSave;
     private String jumlahIsiPenumpangSave;
+
+    private String encryptNamaPemesan;
+    private String encryptJeniskeperluanSave;
+    private String encryptJenisPemesananSave;
+    private String encryptJenisPemesananMobilSave;
+    private String encryptKawasanSave;
+    private String encryptAreaTujuanKawasanPilhanSave;
+    private String encryptWitelSave;
+    private String encryptAreaPoolSave;
+    private String encryptEdtPenjemputan;
+    private String encryptAreaTujuanKawasanSave;
+    private String encryptPlaceName;
+    private String encryptLatitudeBerangkat;
+    private String encryptLongitudeBerangkat;
+    private String encryptLatitudeTujuan;
+    private String encryptLongitudeTUjuan;
+    private String encryptTvTanggal, encryptTvWaktu;
+    private String encryptTvTanggalKepulangan, encryptTvWaktuKepulangan;
+    private String encryptEdtNoTeleponKantor;
+    private String encryptEdtNoHp;
+    private String encryptJumlahIsiPenumpangSave;
+    private String encryptEdtIsiPenumpang;
+    private String encryptEdtKeterangan;
+    private String encryptStringJarak;
+    private String encryptHitungHargaBBM;
+    private String encryptPimpinan;
 
     private final static int PLACE_PICKER_REQUEST = 999;
 
@@ -137,6 +166,7 @@ public class PemesananMobilFragment extends Fragment {
     private PemesananUserPresenter pemesananUserPresenter;
     private Button btnPesanSekarang;
     private ArrayList<MobilModel> mobilModels;
+    private Vigenere vigenere;
 
 
     public PemesananMobilFragment() {
@@ -152,9 +182,13 @@ public class PemesananMobilFragment extends Fragment {
         initView(view);
         mobilModels = new ArrayList<>();
         pemesananUserPresenter = new PemesananUserPresenter();
+        vigenere = new Vigenere();
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, MODE_PRIVATE);
+        keyEncrypt = sharedPreferences.getString(Config.SHARED_PREF_KEY_ENCRYPT, "");
+        encryptPimpinan = vigenere.encryptAlgorithm("Yani Maria Christie", keyEncrypt);
         namaPemesan = sharedPreferences.getString(Config.SHARED_PREF_NAMA_LENGKAP, "");
+        encryptNamaPemesan = vigenere.encryptAlgorithm(namaPemesan, keyEncrypt);
         idUser = sharedPreferences.getString(Config.SHARED_PREF_ID, "");
         regID = sharedPreferences.getString("regId", "");
 
@@ -166,7 +200,9 @@ public class PemesananMobilFragment extends Fragment {
             SimpleLocation.openSettings(getActivity());
         }
         latitudeBerangkat = location.getLatitude();
+        encryptLatitudeBerangkat = vigenere.encryptAlgorithm(String.valueOf(latitudeBerangkat), keyEncrypt);
         longitudeBerangkat = location.getLongitude();
+        encryptLongitudeBerangkat = vigenere.encryptAlgorithm(String.valueOf(longitudeBerangkat), keyEncrypt);
 //        Toast.makeText(getActivity(), "" + latitudeBerangkat + longitudeBerangkat, Toast.LENGTH_SHORT).show();
 
         android_id = Settings.Secure.getString(getContext().getContentResolver(),
@@ -212,6 +248,7 @@ public class PemesananMobilFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getTime(tvWaktu);
+                encryptTvWaktu = vigenere.encryptAlgorithm(tvWaktu.getText().toString().trim(), keyEncrypt);
             }
         });
 
@@ -226,6 +263,8 @@ public class PemesananMobilFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getTime(tvWaktuKepulangan);
+                encryptTvWaktuKepulangan = vigenere.encryptAlgorithm(tvWaktuKepulangan.getText().toString().trim(), keyEncrypt);
+
             }
         });
 
@@ -260,7 +299,8 @@ public class PemesananMobilFragment extends Fragment {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 jeniskeperluanSave = item;
-                Snackbar.make(view, "Memilih " + jeniskeperluanSave, Snackbar.LENGTH_LONG).show();
+                encryptJeniskeperluanSave = vigenere.encryptAlgorithm(jeniskeperluanSave, keyEncrypt);
+                Snackbar.make(view, "Memilih " + encryptJeniskeperluanSave, Snackbar.LENGTH_LONG).show();
             }
         });
         spnJenisPemesanan.setItems(jenisPemesanan);
@@ -269,6 +309,7 @@ public class PemesananMobilFragment extends Fragment {
             @Override
             public void onItemSelected(MaterialSpinner view, final int position, long id, String item) {
                 jenisPemesananSave = item;
+                encryptJenisPemesananSave = vigenere.encryptAlgorithm(jenisPemesananSave, keyEncrypt);
                 Snackbar.make(view, "Memilih " + jenisPemesananSave, Snackbar.LENGTH_LONG).show();
 
                 ApiService apiService = ApiConfig.getApiService();
@@ -276,21 +317,20 @@ public class PemesananMobilFragment extends Fragment {
                         .enqueue(new Callback<ArrayList<MobilModel>>() {
                             @Override
                             public void onResponse(Call<ArrayList<MobilModel>> call, Response<ArrayList<MobilModel>> response) {
-                                if (response.isSuccessful()){
+                                if (response.isSuccessful()) {
                                     mobilModels = response.body();
-                                    Toast.makeText(getActivity(), "" + mobilModels, Toast.LENGTH_SHORT).show();
                                     for (int i = 0; i < mobilModels.size(); i++) {
                                         spnJenisMobil.setItems(mobilModels.get(i).getTYPEMOBIL() + " " + mobilModels.get(i).getPLATMOBIL());
+                                        encryptJenisPemesananMobilSave = vigenere.encryptAlgorithm(mobilModels.get(i).getTYPEMOBIL() + " " + mobilModels.get(i).getPLATMOBIL(), keyEncrypt);
 
                                     }
 
-                            spnJenisMobil.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-                                @Override
-                                public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                                    Toast.makeText(getActivity(), "" + item, Toast.LENGTH_SHORT).show();
-                                    jenisPemesananMobilSave = item;
-                                }
-                            });
+                                    spnJenisMobil.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+                                        @Override
+                                        public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                                            jenisPemesananMobilSave = item;
+                                        }
+                                    });
                                 }
                             }
 
@@ -303,13 +343,13 @@ public class PemesananMobilFragment extends Fragment {
         });
 
 
-
         spnKawasan.setItems(kawasan);
         spnKawasan.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 kawasanSave = item;
+                encryptKawasanSave = vigenere.encryptAlgorithm(kawasanSave, keyEncrypt);
                 Snackbar.make(view, "Memilih " + kawasanSave, Snackbar.LENGTH_LONG).show();
             }
         });
@@ -319,6 +359,7 @@ public class PemesananMobilFragment extends Fragment {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 witelSave = item;
+                encryptWitelSave = vigenere.encryptAlgorithm(witelSave, keyEncrypt);
                 Snackbar.make(view, "Memilih " + witelSave, Snackbar.LENGTH_LONG).show();
             }
         });
@@ -328,6 +369,7 @@ public class PemesananMobilFragment extends Fragment {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 areaPoolSave = item;
+                encryptAreaPoolSave = vigenere.encryptAlgorithm(areaPoolSave, keyEncrypt);
                 Snackbar.make(view, "Memilih " + areaPoolSave, Snackbar.LENGTH_LONG).show();
             }
         });
@@ -337,6 +379,7 @@ public class PemesananMobilFragment extends Fragment {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 areaTujuanKawasanSave = item;
+                encryptAreaTujuanKawasanSave = vigenere.encryptAlgorithm(areaTujuanKawasanSave, keyEncrypt);
                 Snackbar.make(view, "Memilih " + areaTujuanKawasanSave, Snackbar.LENGTH_LONG).show();
             }
         });
@@ -346,6 +389,7 @@ public class PemesananMobilFragment extends Fragment {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 areaTujuanKawasanPilhanSave = item;
+                encryptAreaTujuanKawasanPilhanSave = vigenere.encryptAlgorithm(areaTujuanKawasanPilhanSave, keyEncrypt);
                 Snackbar.make(view, "Memilih " + areaTujuanKawasanPilhanSave, Snackbar.LENGTH_LONG).show();
             }
         });
@@ -355,7 +399,93 @@ public class PemesananMobilFragment extends Fragment {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 jumlahIsiPenumpangSave = item;
+                encryptJumlahIsiPenumpangSave = vigenere.encryptAlgorithm(jumlahIsiPenumpangSave, keyEncrypt);
                 Snackbar.make(view, "Memilih " + jumlahIsiPenumpangSave, Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+        edtPenjemputan.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                encryptEdtPenjemputan = vigenere.encryptAlgorithm(String.valueOf(charSequence), keyEncrypt);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        edtNoTeleponKantor.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                encryptEdtNoTeleponKantor = vigenere.encryptAlgorithm(String.valueOf(charSequence), keyEncrypt);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        edtNoHp.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                encryptEdtNoHp = vigenere.encryptAlgorithm(String.valueOf(charSequence), keyEncrypt);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        edtIsiPenumpang.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                encryptEdtIsiPenumpang = vigenere.encryptAlgorithm(String.valueOf(charSequence), keyEncrypt);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        edtKeterangan.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                encryptEdtKeterangan = vigenere.encryptAlgorithm(String.valueOf(charSequence), keyEncrypt);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 
@@ -372,30 +502,30 @@ public class PemesananMobilFragment extends Fragment {
                 pemesananUserPresenter.dataUserPemesanan(
                         getActivity(),
                         "1",
-                        namaPemesan,
-                        jeniskeperluanSave,
-                        jenisPemesananSave,
-                        jenisPemesananMobilSave,
-                        kawasanSave,
-                        witelSave,
-                        areaPoolSave,
-                        edtPenjemputan.getText().toString().trim(),
-                        areaTujuanKawasanSave + ", " + areaTujuanKawasanPilhanSave,
-                        placeName + ", " + placeNameAdress,
-                        String.valueOf(latitudeBerangkat),
-                        String.valueOf(longitudeBerangkat),
-                        String.valueOf(latitudeTujuan),
-                        String.valueOf(longitudeTUjuan),
-                        tvTanggal.getText().toString().trim() + ", " + tvWaktu.getText().toString().trim(),
-                        tvTanggalKepulangan.getText().toString().trim() + ", " + tvWaktuKepulangan.getText().toString().trim(),
-                        edtNoTeleponKantor.getText().toString().trim(),
-                        edtNoHp.getText().toString().trim(),
-                        jumlahIsiPenumpangSave,
-                        edtIsiPenumpang.getText().toString().trim(),
-                        edtKeterangan.getText().toString().trim(),
-                        String.valueOf(stringJarak),
-                        String.valueOf(hitungHargaBBM),
-                        "Yani Maria Christie",
+                        encryptNamaPemesan,
+                        encryptJeniskeperluanSave,
+                        encryptJenisPemesananSave,
+                        encryptJenisPemesananMobilSave,
+                        encryptKawasanSave,
+                        encryptWitelSave,
+                        encryptAreaPoolSave,
+                        encryptEdtPenjemputan,
+                        encryptAreaTujuanKawasanSave + ", " + encryptAreaTujuanKawasanPilhanSave,
+                        encryptPlaceName,
+                        String.valueOf(encryptLatitudeBerangkat),
+                        String.valueOf(encryptLongitudeBerangkat),
+                        String.valueOf(encryptLatitudeTujuan),
+                        String.valueOf(encryptLongitudeTUjuan),
+                        encryptTvTanggal + ", " + encryptTvWaktu,
+                        encryptTvTanggalKepulangan + ", " + encryptTvWaktuKepulangan,
+                        encryptEdtNoTeleponKantor,
+                        encryptEdtNoHp,
+                        encryptJumlahIsiPenumpangSave,
+                        encryptEdtIsiPenumpang,
+                        encryptEdtKeterangan,
+                        String.valueOf(encryptStringJarak),
+                        String.valueOf(encryptHitungHargaBBM),
+                        encryptPimpinan,
                         tvTokenPemesanan.getText().toString().trim(),
                         regID
                 );
@@ -414,21 +544,26 @@ public class PemesananMobilFragment extends Fragment {
                     Place place = PlacePicker.getPlace(getActivity(), data);
                     placeNameAdress = String.format("%s", place.getAddress());
                     placeName = String.format("%s", place.getName());
+                    encryptPlaceName = vigenere.encryptAlgorithm(placeName + ", " + placeNameAdress, keyEncrypt);
                     latitudeTujuan = place.getLatLng().latitude;
+                    encryptLatitudeTujuan = vigenere.encryptAlgorithm(String.valueOf(latitudeTujuan), keyEncrypt);
                     longitudeTUjuan = place.getLatLng().longitude;
+                    encryptLongitudeTUjuan = vigenere.encryptAlgorithm(String.valueOf(longitudeTUjuan), keyEncrypt);
 
 //                    tvAlamatDetail.setText(placeName + ", " + placeNameAdress);
 //                    getDistance(latitudeBerangkat, longitudeBerangkat, latitudeTujuan, longitudeTUjuan);
                     hitungJarak = Haversine.hitungJarak(latitudeBerangkat, longitudeBerangkat, latitudeTujuan, longitudeTUjuan);
                     stringJarak = Double.parseDouble(String.format("%.2f", hitungJarak));
+                    encryptStringJarak = vigenere.encryptAlgorithm(String.valueOf(stringJarak), keyEncrypt);
                     hitungHargaBBM = (stringJarak / 11.5) * 7650;
+                    encryptHitungHargaBBM = vigenere.encryptAlgorithm(String.valueOf(hitungHargaBBM), keyEncrypt);
 //                    tvAlamatDetail.setText(stringJarak + ">>> " + "Rp." + hitungHargaBBM);
                     tvAlamatDetail.setText(placeName + ", " + placeNameAdress);
             }
         }
     }
 
-    private void getTime(final TextView textView) {
+    public void getTime(final TextView textView) {
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int minute = mcurrentTime.get(Calendar.MINUTE);
@@ -444,22 +579,26 @@ public class PemesananMobilFragment extends Fragment {
         mTimePicker.show();
     }
 
-    private void getDate(DatePickerDialog.OnDateSetListener type) {
+    public void getDate(DatePickerDialog.OnDateSetListener type) {
         new DatePickerDialog(getActivity(), type, myCalendar
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
-    private void updateLabelBerangkat() {
+    public void updateLabelBerangkat() {
         String myFormat = "yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         tvTanggal.setText(sdf.format(myCalendar.getTime()));
+
+        encryptTvTanggal = vigenere.encryptAlgorithm(tvTanggal.getText().toString().trim(), keyEncrypt);
     }
 
-    private void updateLabelKepulangan() {
+    public void updateLabelKepulangan() {
         String myFormat = "yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         tvTanggalKepulangan.setText(sdf.format(myCalendar.getTime()));
+        encryptTvTanggalKepulangan = vigenere.encryptAlgorithm(tvTanggalKepulangan.getText().toString().trim(), keyEncrypt);
+
     }
 
     public Double getDistance(Double firstLat, Double firstLong, Double secondLat, Double secondLong) {

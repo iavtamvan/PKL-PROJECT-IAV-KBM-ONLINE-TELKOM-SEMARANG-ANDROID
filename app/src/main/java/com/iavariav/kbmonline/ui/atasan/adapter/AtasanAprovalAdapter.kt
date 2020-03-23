@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
 import com.iavariav.kbmonline.R
+import com.iavariav.kbmonline.algoritma.Vigenere
 import com.iavariav.kbmonline.helper.Config
 import com.iavariav.kbmonline.model.PemesananModel
 import com.iavariav.kbmonline.rest.ApiConfig
@@ -31,7 +32,23 @@ import retrofit2.Response
 
 class AtasanAprovalAdapter(private val context: Context, private val pemesananModels: ArrayList<PemesananModel>) : RecyclerView.Adapter<AtasanAprovalAdapter.ViewHolder>() {
     private var id: String? = null
+    private var key: String? = null
     private var regId: String? = null
+
+    private var vigenere: Vigenere? = null
+
+    private val regToken: String? = null
+    private var nama: String? = null
+    private var jenisKeperluan: String? = null
+    private var jenisPemesanan: String? = null
+    private var km: String? = null
+    private var keberangkatan: String? = null
+    private var waktuKeberangkatan: String? = null
+    private var tujuan: String? = null
+    private var waktuTujuan: String? = null
+    private var isiPenumpang: String? = null
+    private var keternangan: String? = null
+    private var hitungHargaBbm: String? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_atasan, parent, false)
@@ -39,25 +56,63 @@ class AtasanAprovalAdapter(private val context: Context, private val pemesananMo
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+//        val sharedPreferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE)
+//        id = sharedPreferences.getString(Config.SHARED_PREF_ID, "")
+//        holder.tvRegToken.text = pemesananModels[position].regtokenpemesanan
+//        holder.tvNama.text = pemesananModels[position].namapemesan
+//        holder.tvJenisKeperluan.text = pemesananModels[position].jeniskeperluan
+//        holder.tvJenisPemesanan.text = pemesananModels[position].jenispemesanan
+//        holder.tvKm.text = pemesananModels[position].jarakperkm + "\n KM"
+//        holder.tvKeberangkatan.text = pemesananModels[position].keberangkatanareapool
+//        holder.tvWaktuKeberangkatan.text = pemesananModels[position].waktukeberangkatan
+//        holder.tvTujuan.text = pemesananModels[position].tujuanalamatjemput
+//        holder.tvWaktuTujuan.text = pemesananModels[position].waktukepulangan
+//        holder.tvIsiPenumpang.text = pemesananModels[position].isipenumpang
+//        holder.tvKeternangan.text = pemesananModels[position].keterangan
+//        holder.tvStatus.text = pemesananModels[position].statuspemesanan
+//
+//        regId = pemesananModels[position].regid
+//        val jarakKm = pemesananModels[position].jarakperkm
+//        //        double hitungLiter = Integer.parseInt(jarakKm)/ 11.6;
+//        //        double hitugHargaBBM = hitungLiter * Integer.parseInt(pemesananModels.get(position).getBENSINPERLITER());
+//
+//        holder.tvHargaBbm.text = "RP." + pemesananModels[position].bensinperliter
+        vigenere = Vigenere()
         val sharedPreferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE)
         id = sharedPreferences.getString(Config.SHARED_PREF_ID, "")
+        key = sharedPreferences.getString(Config.SHARED_PREF_KEY_ENCRYPT, "")
+
+//        regToken = vigenere.decryptAlgorithm(pemesananModels.get(position).getREGTOKENPEMESANAN(), key);
+        nama = vigenere!!.decryptAlgorithm(pemesananModels[position].namapemesan, key)
+        jenisKeperluan = vigenere!!.decryptAlgorithm(pemesananModels[position].jeniskeperluan, key)
+        jenisPemesanan = vigenere!!.decryptAlgorithm(pemesananModels[position].jenispemesanan, key)
+        km = vigenere!!.decryptAlgorithm(pemesananModels[position].jarakperkm, key)
+        keberangkatan = vigenere!!.decryptAlgorithm(pemesananModels[position].keberangkatanareapool, key)
+        waktuKeberangkatan = vigenere!!.decryptAlgorithm(pemesananModels[position].waktukeberangkatan, key)
+        tujuan = vigenere!!.decryptAlgorithm(pemesananModels[position].tujuanalamatjemput, key)
+        waktuTujuan = vigenere!!.decryptAlgorithm(pemesananModels[position].waktukepulangan, key)
+        isiPenumpang = vigenere!!.decryptAlgorithm(pemesananModels[position].isipenumpang, key)
+        keternangan = vigenere!!.decryptAlgorithm(pemesananModels[position].keterangan, key)
+        hitungHargaBbm = vigenere!!.decryptAlgorithm(pemesananModels[position].bensinperliter, key)
+
         holder.tvRegToken.text = pemesananModels[position].regtokenpemesanan
-        holder.tvNama.text = pemesananModels[position].namapemesan
-        holder.tvJenisKeperluan.text = pemesananModels[position].jeniskeperluan
-        holder.tvJenisPemesanan.text = pemesananModels[position].jenispemesanan
-        holder.tvKm.text = pemesananModels[position].jarakperkm + "\n KM"
-        holder.tvKeberangkatan.text = pemesananModels[position].keberangkatanareapool
+        holder.tvNama.setText(pemesananModels[position].namapemesan)
+        holder.tvJenisKeperluan.setText(jenisKeperluan)
+        holder.tvJenisPemesanan.setText(jenisPemesanan)
+        holder.tvKm.setText(km + "\n KM")
+        holder.tvKeberangkatan.setText(keberangkatan)
         holder.tvWaktuKeberangkatan.text = pemesananModels[position].waktukeberangkatan
-        holder.tvTujuan.text = pemesananModels[position].tujuanalamatjemput
+        holder.tvTujuan.setText(tujuan)
         holder.tvWaktuTujuan.text = pemesananModels[position].waktukepulangan
-        holder.tvIsiPenumpang.text = pemesananModels[position].isipenumpang
-        holder.tvKeternangan.text = pemesananModels[position].keterangan
+        holder.tvIsiPenumpang.setText(isiPenumpang)
+        holder.tvKeternangan.setText(keternangan)
         holder.tvStatus.text = pemesananModels[position].statuspemesanan
 
-        regId = pemesananModels[position].regid
+
         val jarakKm = pemesananModels[position].jarakperkm
-        //        double hitungLiter = Integer.parseInt(jarakKm)/ 11.6;
-        //        double hitugHargaBBM = hitungLiter * Integer.parseInt(pemesananModels.get(position).getBENSINPERLITER());
+//        double hitungLiter = Integer.parseInt(jarakKm)/ 11.6;
+//        double hitugHargaBBM = hitungLiter * Integer.parseInt(pemesananModels.get(position).getBENSINPERLITER());
 
         holder.tvHargaBbm.text = "RP." + pemesananModels[position].bensinperliter
 

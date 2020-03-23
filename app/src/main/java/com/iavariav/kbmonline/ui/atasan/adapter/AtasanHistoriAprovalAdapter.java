@@ -11,20 +11,37 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iavariav.kbmonline.R;
+import com.iavariav.kbmonline.algoritma.Vigenere;
 import com.iavariav.kbmonline.helper.Config;
 import com.iavariav.kbmonline.model.PemesananModel;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class AtasanHistoriAprovalAdapter extends RecyclerView.Adapter<AtasanHistoriAprovalAdapter.ViewHolder> {
-    private String id;
+    private String id, key;
     private Context context;
+    private Vigenere vigenere;
 
-    private ArrayList<PemesananModel> PemesananModels;
+    private String regToken;
+    private String nama;
+    private String jenisKeperluan;
+    private String jenisPemesanan;
+    private String km;
+    private String keberangkatan;
+    private String waktuKeberangkatan;
+    private String tujuan;
+    private String waktuTujuan;
+    private String isiPenumpang;
+    private String keternangan;
+    private String hitungHargaBbm;
 
-    public AtasanHistoriAprovalAdapter(Context context, ArrayList<PemesananModel> PemesananModels) {
+    private ArrayList<PemesananModel> pemesananModels;
+
+    public AtasanHistoriAprovalAdapter(Context context, ArrayList<PemesananModel> pemesananModels) {
         this.context = context;
-        this.PemesananModels = PemesananModels;
+        this.pemesananModels = pemesananModels;
     }
 
     @NonNull
@@ -36,27 +53,70 @@ public class AtasanHistoriAprovalAdapter extends RecyclerView.Adapter<AtasanHist
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+//        SharedPreferences sharedPreferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+//        id = sharedPreferences.getString(Config.SHARED_PREF_ID, "");
+//        holder.tvRegToken.setText(pemesananModels.get(position).getREGTOKENPEMESANAN());
+//        holder.tvNama.setText(pemesananModels.get(position).getNAMAPEMESAN());
+//        holder.tvJenisKeperluan.setText(pemesananModels.get(position).getJENISKEPERLUAN());
+//        holder.tvJenisPemesanan.setText(pemesananModels.get(position).getJENISPEMESANAN());
+//        holder.tvKm.setText(pemesananModels.get(position).getJARAKPERKM() + "\n KM");
+//        holder.tvKeberangkatan.setText(pemesananModels.get(position).getKEBERANGKATANAREAPOOL());
+//        holder.tvWaktuKeberangkatan.setText(pemesananModels.get(position).getWAKTUKEBERANGKATAN());
+//        holder.tvTujuan.setText(pemesananModels.get(position).getTUJUANALAMATJEMPUT());
+//        holder.tvWaktuTujuan.setText(pemesananModels.get(position).getWAKTUKEPULANGAN());
+//        holder.tvIsiPenumpang.setText(pemesananModels.get(position).getISIPENUMPANG());
+//        holder.tvKeternangan.setText(pemesananModels.get(position).getKETERANGAN());
+//        holder.tvStatus.setText(pemesananModels.get(position).getSTATUSPEMESANAN());
+//
+//
+//        String jarakKm = pemesananModels.get(position).getJARAKPERKM();
+////        double hitungLiter = Integer.parseInt(jarakKm)/ 11.6;
+////        double hitugHargaBBM = hitungLiter * Integer.parseInt(pemesananModels.get(position).getBENSINPERLITER());
+//
+//        holder.tvHargaBbm.setText("RP." + pemesananModels.get(position).getBENSINPERLITER());
+
+        vigenere = new Vigenere();
         SharedPreferences sharedPreferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         id = sharedPreferences.getString(Config.SHARED_PREF_ID, "");
-        holder.tvRegToken.setText(PemesananModels.get(position).getREGTOKENPEMESANAN());
-        holder.tvNama.setText(PemesananModels.get(position).getNAMAPEMESAN());
-        holder.tvJenisKeperluan.setText(PemesananModels.get(position).getJENISKEPERLUAN());
-        holder.tvJenisPemesanan.setText(PemesananModels.get(position).getJENISPEMESANAN());
-        holder.tvKm.setText(PemesananModels.get(position).getJARAKPERKM() + "\n KM");
-        holder.tvKeberangkatan.setText(PemesananModels.get(position).getKEBERANGKATANAREAPOOL());
-        holder.tvWaktuKeberangkatan.setText(PemesananModels.get(position).getWAKTUKEBERANGKATAN());
-        holder.tvTujuan.setText(PemesananModels.get(position).getTUJUANALAMATJEMPUT());
-        holder.tvWaktuTujuan.setText(PemesananModels.get(position).getWAKTUKEPULANGAN());
-        holder.tvIsiPenumpang.setText(PemesananModels.get(position).getISIPENUMPANG());
-        holder.tvKeternangan.setText(PemesananModels.get(position).getKETERANGAN());
-        holder.tvStatus.setText(PemesananModels.get(position).getSTATUSPEMESANAN());
+        key = sharedPreferences.getString(Config.SHARED_PREF_KEY_ENCRYPT, "");
+
+//        regToken = vigenere.decryptAlgorithm(pemesananModels.get(position).getREGTOKENPEMESANAN(), key);
+        nama = vigenere.decryptAlgorithm(pemesananModels.get(position).getNAMAPEMESAN(), key);
+        jenisKeperluan = vigenere.decryptAlgorithm(pemesananModels.get(position).getJENISKEPERLUAN(), key);
+        jenisPemesanan = vigenere.decryptAlgorithm(pemesananModels.get(position).getJENISPEMESANAN(), key);
+        km = vigenere.decryptAlgorithm(pemesananModels.get(position).getJARAKPERKM(), key);
+        keberangkatan = vigenere.decryptAlgorithm(pemesananModels.get(position).getKEBERANGKATANAREAPOOL(), key);
+        waktuKeberangkatan = vigenere.decryptAlgorithm(pemesananModels.get(position).getWAKTUKEBERANGKATAN(), key);
+        tujuan = vigenere.decryptAlgorithm(pemesananModels.get(position).getTUJUANALAMATJEMPUT(), key);
+        waktuTujuan = vigenere.decryptAlgorithm(pemesananModels.get(position).getWAKTUKEPULANGAN(), key);
+        isiPenumpang = vigenere.decryptAlgorithm(pemesananModels.get(position).getISIPENUMPANG(), key);
+        keternangan = vigenere.decryptAlgorithm(pemesananModels.get(position).getKETERANGAN(), key);
+        hitungHargaBbm = vigenere.decryptAlgorithm(pemesananModels.get(position).getBENSINPERLITER(), key);
+
+        holder.tvRegToken.setText(pemesananModels.get(position).getREGTOKENPEMESANAN() );
+        holder.tvNama.setText(pemesananModels.get(position).getNAMAPEMESAN());
+        holder.tvJenisKeperluan.setText(jenisKeperluan);
+        holder.tvJenisPemesanan.setText(jenisPemesanan);
+        holder.tvKm.setText(km + "\n KM");
+        holder.tvKeberangkatan.setText(keberangkatan);
+        holder.tvWaktuKeberangkatan.setText(pemesananModels.get(position).getWAKTUKEBERANGKATAN());
+        holder.tvTujuan.setText(tujuan);
+        holder.tvWaktuTujuan.setText(pemesananModels.get(position).getWAKTUKEPULANGAN());
+        holder.tvIsiPenumpang.setText(isiPenumpang);
+        holder.tvKeternangan.setText(keternangan);
+        holder.tvStatus.setText(pemesananModels.get(position).getSTATUSPEMESANAN());
 
 
-        String jarakKm = PemesananModels.get(position).getJARAKPERKM();
+        String jarakKm = pemesananModels.get(position).getJARAKPERKM();
 //        double hitungLiter = Integer.parseInt(jarakKm)/ 11.6;
-//        double hitugHargaBBM = hitungLiter * Integer.parseInt(PemesananModels.get(position).getBENSINPERLITER());
+//        double hitugHargaBBM = hitungLiter * Integer.parseInt(pemesananModels.get(position).getBENSINPERLITER());
 
-        holder.tvHargaBbm.setText("RP." + PemesananModels.get(position).getBENSINPERLITER());
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+
+        holder.tvHargaBbm.setText("RP." + pemesananModels.get(position).getBENSINPERLITER());
+//        holder.tvHargaBbm.setText("RP." + formatRupiah.format(Float.parseFloat(pemesananModels.get(position).getBENSINPERLITER())));
+
 
 
     }
@@ -64,7 +124,7 @@ public class AtasanHistoriAprovalAdapter extends RecyclerView.Adapter<AtasanHist
 
     @Override
     public int getItemCount() {
-        return PemesananModels.size();
+        return pemesananModels.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

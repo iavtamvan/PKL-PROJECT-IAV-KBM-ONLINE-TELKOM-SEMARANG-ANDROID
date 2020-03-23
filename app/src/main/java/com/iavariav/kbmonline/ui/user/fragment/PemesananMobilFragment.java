@@ -186,6 +186,7 @@ public class PemesananMobilFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, MODE_PRIVATE);
         keyEncrypt = sharedPreferences.getString(Config.SHARED_PREF_KEY_ENCRYPT, "");
+//        keyEncrypt = "encLLLkbmtelkom";
         encryptPimpinan = vigenere.encryptAlgorithm("Yani Maria Christie", keyEncrypt);
         namaPemesan = sharedPreferences.getString(Config.SHARED_PREF_NAMA_LENGKAP, "");
         encryptNamaPemesan = vigenere.encryptAlgorithm(namaPemesan, keyEncrypt);
@@ -300,7 +301,7 @@ public class PemesananMobilFragment extends Fragment {
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 jeniskeperluanSave = item;
                 encryptJeniskeperluanSave = vigenere.encryptAlgorithm(jeniskeperluanSave, keyEncrypt);
-                Snackbar.make(view, "Memilih " + encryptJeniskeperluanSave, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, "Memilih " + jeniskeperluanSave, Snackbar.LENGTH_LONG).show();
             }
         });
         spnJenisPemesanan.setItems(jenisPemesanan);
@@ -492,17 +493,10 @@ public class PemesananMobilFragment extends Fragment {
         btnPesanSekarang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                pemesananUserPresenter.dataUserPemesanan(getActivity(), "1", namaPemesan
-////                        , jeniskeperluanSave, jenisPemesananSave, "Mobil H5609JK", kawasanSave, witelSave,
-////                        areaPoolSave, edtPenjemputan.getText().toString().trim(), areaTujuanKawasanSave + ", " + areaTujuanKawasanPilhanSave, tvAlamatDetail.getText().toString().trim(), String.valueOf(latitudeTujuan),
-////                        String.valueOf(longitudeBerangkat), String.valueOf(latitudeTujuan), String.valueOf(longitudeTUjuan), tvTanggal.getText().toString() + tvWaktu.getText().toString().trim(),
-////                        tvTanggalKepulangan.getText().toString().trim() + tvWaktuKepulangan.getText().toString().trim(), edtNoTeleponKantor.getText().toString().trim(),
-////                        edtNoHp.getText().toString().trim(), jumlahIsiPenumpangSave, edtIsiPenumpang.getText().toString().trim(), edtKeterangan.getText().toString().trim(), String.valueOf(stringJarak), String.valueOf(hitungHargaBBM), "YANI",
-////                        tvTokenPemesanan.getText().toString().trim());
                 pemesananUserPresenter.dataUserPemesanan(
                         getActivity(),
                         "1",
-                        encryptNamaPemesan,
+                        namaPemesan,
                         encryptJeniskeperluanSave,
                         encryptJenisPemesananSave,
                         encryptJenisPemesananMobilSave,
@@ -516,15 +510,15 @@ public class PemesananMobilFragment extends Fragment {
                         String.valueOf(encryptLongitudeBerangkat),
                         String.valueOf(encryptLatitudeTujuan),
                         String.valueOf(encryptLongitudeTUjuan),
-                        encryptTvTanggal + ", " + encryptTvWaktu,
-                        encryptTvTanggalKepulangan + ", " + encryptTvWaktuKepulangan,
+                        tvTanggal.getText().toString().trim() + ", " + tvWaktu.getText().toString().trim(),
+                        tvTanggalKepulangan.getText().toString().trim() + ", " + tvWaktuKepulangan.getText().toString().trim(),
                         encryptEdtNoTeleponKantor,
                         encryptEdtNoHp,
                         encryptJumlahIsiPenumpangSave,
                         encryptEdtIsiPenumpang,
                         encryptEdtKeterangan,
-                        String.valueOf(encryptStringJarak),
-                        String.valueOf(encryptHitungHargaBBM),
+                        String.valueOf(stringJarak),
+                        String.valueOf(hitungHargaBBM),
                         encryptPimpinan,
                         tvTokenPemesanan.getText().toString().trim(),
                         regID
@@ -555,7 +549,7 @@ public class PemesananMobilFragment extends Fragment {
                     hitungJarak = Haversine.hitungJarak(latitudeBerangkat, longitudeBerangkat, latitudeTujuan, longitudeTUjuan);
                     stringJarak = Double.parseDouble(String.format("%.2f", hitungJarak));
                     encryptStringJarak = vigenere.encryptAlgorithm(String.valueOf(stringJarak), keyEncrypt);
-                    hitungHargaBBM = (stringJarak / 11.5) * 7650;
+                    hitungHargaBBM = (stringJarak / 11) * 7650;
                     encryptHitungHargaBBM = vigenere.encryptAlgorithm(String.valueOf(hitungHargaBBM), keyEncrypt);
 //                    tvAlamatDetail.setText(stringJarak + ">>> " + "Rp." + hitungHargaBBM);
                     tvAlamatDetail.setText(placeName + ", " + placeNameAdress);
@@ -598,24 +592,6 @@ public class PemesananMobilFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         tvTanggalKepulangan.setText(sdf.format(myCalendar.getTime()));
         encryptTvTanggalKepulangan = vigenere.encryptAlgorithm(tvTanggalKepulangan.getText().toString().trim(), keyEncrypt);
-
-    }
-
-    public Double getDistance(Double firstLat, Double firstLong, Double secondLat, Double secondLong) {
-
-        double phi1 = firstLat * PI_RAD;
-
-        double phi2 = secondLat * PI_RAD;
-
-        double lam1 = firstLong * PI_RAD;
-
-        double lam2 = secondLong * PI_RAD;
-
-
-        distance = 6371.01 * acos(sin(phi1) * sin(phi2) + cos(phi1) * cos(phi2) * cos(lam2 - lam1));
-
-
-        return distance;
 
     }
 

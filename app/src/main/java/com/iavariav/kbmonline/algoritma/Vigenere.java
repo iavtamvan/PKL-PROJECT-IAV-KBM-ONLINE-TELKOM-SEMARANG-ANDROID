@@ -34,7 +34,7 @@ public class Vigenere {
     } // end of encryptAlgorithm method.
 
     @SuppressLint("NewApi")
-    private String decryptAlgorithm(String text, String keyphrase) {
+    public String decryptAlgorithm(String text, String keyphrase) {
 
         keyphrase = keyphrase.toUpperCase();
         StringBuilder sb = new StringBuilder(1000);

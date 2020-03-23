@@ -9,7 +9,7 @@ public class ApiConfig {
         Retrofit retrofit = new Retrofit.Builder()
 //                .baseUrl("http://192.168.1.18/~mac/kbm_online/")
 //                .baseUrl("http://10.81.11.13/~mac/kbm_online/")
-                .baseUrl("http://192.168.43.182/~mac/kbm_online/")
+                .baseUrl("http://192.168.43.76/~mac/kbm_online/")
 //                .baseUrl("http://sig.upgris.ac.id/api_iav/sertifikasi_android/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

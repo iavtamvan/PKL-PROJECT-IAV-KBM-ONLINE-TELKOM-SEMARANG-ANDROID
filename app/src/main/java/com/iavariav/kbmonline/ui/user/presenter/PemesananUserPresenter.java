@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.iavariav.kbmonline.rest.ApiConfig;
 import com.iavariav.kbmonline.rest.ApiService;
+import com.iavariav.kbmonline.ui.user.UserActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -86,7 +87,12 @@ public class PemesananUserPresenter {
                             try {
                                 JSONObject jsonObject = new JSONObject(response.body().string());
                                 String error = jsonObject.optString("error_msg");
-                                Toast.makeText(context, "" + error, Toast.LENGTH_SHORT).show();
+                                if (error.equalsIgnoreCase("Berhasil")){
+                                    Toast.makeText(context, "" + error, Toast.LENGTH_SHORT).show();
+                                    ((UserActivity)context).setupHistori();
+                                } else {
+                                    Toast.makeText(context, "" + error, Toast.LENGTH_SHORT).show();
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {

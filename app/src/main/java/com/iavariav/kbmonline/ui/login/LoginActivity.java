@@ -66,12 +66,12 @@ public class LoginActivity extends AppCompatActivity {
 
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
-                        Toast.makeText(LoginActivity.this, "" + token, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(LoginActivity.this, "" + token, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(LoginActivity.this, "" + token, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(LoginActivity.this, "" + token, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(LoginActivity.this, "" + token, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(LoginActivity.this, "" + token, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this, "" + token, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this, "" + token, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this, "" + token, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this, "" + token, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this, "" + token, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this, "" + token, Toast.LENGTH_SHORT).show();
                         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF_NAME, MODE_PRIVATE);
                         SharedPreferences.Editor editor = pref.edit();
                         editor.putString("regId", token);

@@ -39,13 +39,21 @@ public class LoginPresenter {
                             String regID = sharedPreferences.getString("regId", "");
                             updateRegID(context, regID, loginModel.getId());
 
-                            String rule= loginModel.getRule();
-                            if (rule.contains("pimpinan")){
-                                context.startActivity(new Intent(context, AtasanActivity.class));
-                            } else if (rule.contains("user")){
-                                context.startActivity(new Intent(context, UserActivity.class));
+                            if (loginModel.getErrorMsg().equalsIgnoreCase("Gagal Login")){
+                                Toast.makeText(context, "Periksa akun anda", Toast.LENGTH_SHORT).show();
+                            } else {
+                                String rule= loginModel.getRule();
+                                if (rule.equalsIgnoreCase("pimpinan")){
+                                    ((LoginActivity)context).finishAffinity();
+                                    context.startActivity(new Intent(context, AtasanActivity.class));
+                                } else if (rule.equalsIgnoreCase("user")){
+                                    ((LoginActivity)context).finishAffinity();
+                                    context.startActivity(new Intent(context, UserActivity.class));
 //                                Toast.makeText(context, "User RUle", Toast.LENGTH_SHORT).show();
+                                }
                             }
+
+
                         }
                     }
 
@@ -65,7 +73,7 @@ public class LoginPresenter {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()){
 //                            Toast.makeText(context, "Berhasil reg id", Toast.LENGTH_SHORT).show();
-                            ((LoginActivity)context).finishAffinity();
+//                            ((LoginActivity)context).finishAffinity();
                         }
                     }
 

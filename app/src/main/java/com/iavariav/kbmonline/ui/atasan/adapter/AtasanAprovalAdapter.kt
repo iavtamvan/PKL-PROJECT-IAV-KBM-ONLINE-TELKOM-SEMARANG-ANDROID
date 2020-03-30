@@ -123,7 +123,7 @@ class AtasanAprovalAdapter(private val context: Context, private val pemesananMo
         }
 
         // jika ditolak
-        holder.ivDitolak.setOnClickListener { updateDatas(pemesananModels[position].idpemesanan, id, "NOT APROVVED", "Pesanan anda ditolak oleh Pimpinan") }
+        holder.ivDitolak.setOnClickListener { updateDatas(pemesananModels[position].idpemesanan, id, "NOT APPROVED", "Pesanan anda ditolak oleh Pimpinan") }
 
         holder.cvKlik.setOnClickListener {
             val intent = Intent(context, EditPemesananActivity::class.java)
@@ -150,7 +150,7 @@ class AtasanAprovalAdapter(private val context: Context, private val pemesananMo
             intent.putExtra(Config.BUNDLE_JARAK_PER_KM, pemesananModels[position].jarakperkm)
             intent.putExtra(Config.BUNDLE_BENSIN_PER_LITER, pemesananModels[position].bensinperliter)
             intent.putExtra(Config.BUNDLE_REG_TOKEN_PEMESANAN, pemesananModels[position].regtokenpemesanan)
-            context?.startActivity(intent)
+//            context?.startActivity(intent)
         }
 
     }

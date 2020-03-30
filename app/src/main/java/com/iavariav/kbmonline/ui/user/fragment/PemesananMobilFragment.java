@@ -493,36 +493,42 @@ public class PemesananMobilFragment extends Fragment {
         btnPesanSekarang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pemesananUserPresenter.dataUserPemesanan(
-                        getActivity(),
-                        "1",
-                        namaPemesan,
-                        encryptJeniskeperluanSave,
-                        encryptJenisPemesananSave,
-                        encryptJenisPemesananMobilSave,
-                        encryptKawasanSave,
-                        encryptWitelSave,
-                        encryptAreaPoolSave,
-                        encryptEdtPenjemputan,
-                        encryptAreaTujuanKawasanSave + ", " + encryptAreaTujuanKawasanPilhanSave,
-                        encryptPlaceName,
-                        String.valueOf(encryptLatitudeBerangkat),
-                        String.valueOf(encryptLongitudeBerangkat),
-                        String.valueOf(encryptLatitudeTujuan),
-                        String.valueOf(encryptLongitudeTUjuan),
-                        tvTanggal.getText().toString().trim() + ", " + tvWaktu.getText().toString().trim(),
-                        tvTanggalKepulangan.getText().toString().trim() + ", " + tvWaktuKepulangan.getText().toString().trim(),
-                        encryptEdtNoTeleponKantor,
-                        encryptEdtNoHp,
-                        encryptJumlahIsiPenumpangSave,
-                        encryptEdtIsiPenumpang,
-                        encryptEdtKeterangan,
-                        String.valueOf(stringJarak),
-                        String.valueOf(hitungHargaBBM),
-                        encryptPimpinan,
-                        tvTokenPemesanan.getText().toString().trim(),
-                        regID
-                );
+                if (edtKeterangan.getText().toString().isEmpty() || edtIsiPenumpang.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity(), "Lengkap data pemesanan", Toast.LENGTH_SHORT).show();
+                } else {
+                    pemesananUserPresenter.dataUserPemesanan(
+                            getActivity(),
+                            "1",
+                            namaPemesan,
+                            encryptJeniskeperluanSave,
+                            encryptJenisPemesananSave,
+                            encryptJenisPemesananMobilSave,
+                            encryptKawasanSave,
+                            encryptWitelSave,
+                            encryptAreaPoolSave,
+                            encryptEdtPenjemputan,
+                            encryptAreaTujuanKawasanSave + ", " + encryptAreaTujuanKawasanPilhanSave,
+                            encryptPlaceName,
+                            String.valueOf(encryptLatitudeBerangkat),
+                            String.valueOf(encryptLongitudeBerangkat),
+                            String.valueOf(encryptLatitudeTujuan),
+                            String.valueOf(encryptLongitudeTUjuan),
+                            tvTanggal.getText().toString().trim() + ", " + tvWaktu.getText().toString().trim(),
+                            tvTanggalKepulangan.getText().toString().trim() + ", " + tvWaktuKepulangan.getText().toString().trim(),
+                            encryptEdtNoTeleponKantor,
+                            encryptEdtNoHp,
+                            encryptJumlahIsiPenumpangSave,
+                            encryptEdtIsiPenumpang,
+                            encryptEdtKeterangan,
+                            String.valueOf(stringJarak),
+                            String.valueOf(hitungHargaBBM),
+                            encryptPimpinan,
+                            tvTokenPemesanan.getText().toString().trim(),
+                            regID
+                    );
+                }
+
+
             }
         });
 

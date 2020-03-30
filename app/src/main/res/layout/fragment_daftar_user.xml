@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/btn_daftarkan"
         android:textSize="20dp"
-        android:text="Daftarkan YUk !"
+        android:text="Daftarkan"
         android:background="@color/colorBtn"
         android:textColor="@android:color/white"/>
 </LinearLayout>

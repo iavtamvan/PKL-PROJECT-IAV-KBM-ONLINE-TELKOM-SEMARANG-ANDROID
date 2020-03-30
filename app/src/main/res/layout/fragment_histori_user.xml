@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Belum ada pemesanan mobil dinas\n Ayo Sosialisasikan !"
+            android:text="Belum ada pemesanan mobil dinas\n Ayo Memesan !"
             android:textSize="20dp"
             android:fontFamily="@font/bree_serif"
             android:gravity="center"

@@ -44,7 +44,7 @@ public class PemesananUserPresenter {
             String ISI_PENUMPANG,
             String KETERANGAN,
             String JARAK_PER_KM,
-            String BENSIN_PER_LITER,
+//            String BENSIN_PER_LITER,
             String NAMA_ATASAN,
             String REG_TOKEN_PEMESANAN,
             String REG_ID
@@ -75,7 +75,7 @@ public class PemesananUserPresenter {
                 ISI_PENUMPANG,
                 KETERANGAN,
                 JARAK_PER_KM,
-                BENSIN_PER_LITER,
+//                BENSIN_PER_LITER,
                 NAMA_ATASAN,
                 REG_TOKEN_PEMESANAN,
                 REG_ID

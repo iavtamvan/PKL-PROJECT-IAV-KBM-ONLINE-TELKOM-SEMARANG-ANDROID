@@ -1,6 +1,7 @@
 package com.iavariav.kbmonline.ui.user.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -122,7 +123,7 @@ public class PemesananMobilFragment extends Fragment {
     private double longitudeTUjuan;
     private double distance;
     private double hitungJarak;
-    double stringJarak;
+    String stringJarak;
     double hitungHargaBBM;
     private SimpleLocation location;
 
@@ -272,6 +273,7 @@ public class PemesananMobilFragment extends Fragment {
         btnLocDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Toast.makeText(getActivity(), "Ah gubluk", Toast.LENGTH_SHORT).show();
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
                 try {
                     startActivityForResult(builder.build(Objects.requireNonNull(getActivity())), PLACE_PICKER_REQUEST);
@@ -521,7 +523,7 @@ public class PemesananMobilFragment extends Fragment {
                             encryptEdtIsiPenumpang,
                             encryptEdtKeterangan,
                             String.valueOf(stringJarak),
-                            String.valueOf(hitungHargaBBM),
+//                            String.valueOf(hitungHargaBBM),
                             encryptPimpinan,
                             tvTokenPemesanan.getText().toString().trim(),
                             regID
@@ -535,6 +537,7 @@ public class PemesananMobilFragment extends Fragment {
         return view;
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -553,11 +556,11 @@ public class PemesananMobilFragment extends Fragment {
 //                    tvAlamatDetail.setText(placeName + ", " + placeNameAdress);
 //                    getDistance(latitudeBerangkat, longitudeBerangkat, latitudeTujuan, longitudeTUjuan);
                     hitungJarak = Haversine.hitungJarak(latitudeBerangkat, longitudeBerangkat, latitudeTujuan, longitudeTUjuan);
-                    stringJarak = Double.parseDouble(String.format("%.2f", hitungJarak));
-                    encryptStringJarak = vigenere.encryptAlgorithm(String.valueOf(stringJarak), keyEncrypt);
-                    hitungHargaBBM = (stringJarak / 11) * 7650;
-                    encryptHitungHargaBBM = vigenere.encryptAlgorithm(String.valueOf(hitungHargaBBM), keyEncrypt);
-//                    tvAlamatDetail.setText(stringJarak + ">>> " + "Rp." + hitungHargaBBM);
+                    stringJarak = String.format("%.2f", hitungJarak);// mslh
+//                    encryptStringJarak = vigenere.encryptAlgorithm(String.valueOf(stringJarak), keyEncrypt);
+//                    hitungHargaBBM = (Double.parseDouble(stringJarak) / 11) * 7650;
+//                    encryptHitungHargaBBM = vigenere.encryptAlgorithm(String.valueOf(hitungHargaBBM), keyEncrypt);
+////                    tvAlamatDetail.setText(stringJarak + ">>> " + "Rp." + hitungHargaBBM);
                     tvAlamatDetail.setText(placeName + ", " + placeNameAdress);
             }
         }

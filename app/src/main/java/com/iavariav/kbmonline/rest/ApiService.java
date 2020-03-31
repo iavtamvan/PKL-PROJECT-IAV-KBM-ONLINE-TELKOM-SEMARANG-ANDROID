@@ -102,7 +102,7 @@ public interface ApiService {
             @Field("ISI_PENUMPANG") String ISI_PENUMPANG,
             @Field("KETERANGAN") String KETERANGAN,
             @Field("JARAK_PER_KM") String JARAK_PER_KM,
-            @Field("BENSIN_PER_LITER") String BENSIN_PER_LITER,
+//            @Field("BENSIN_PER_LITER") String BENSIN_PER_LITER,
             @Field("NAMA_ATASAN") String NAMA_ATASAN,
             @Field("REG_TOKEN_PEMESANAN") String REG_TOKEN_PEMESANAN,
             @Field("REG_ID") String REG_ID

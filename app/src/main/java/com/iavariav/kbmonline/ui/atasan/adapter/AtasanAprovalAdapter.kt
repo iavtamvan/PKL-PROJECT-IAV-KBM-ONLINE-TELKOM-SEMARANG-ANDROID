@@ -1,7 +1,6 @@
 package com.iavariav.kbmonline.ui.atasan.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,6 @@ import com.iavariav.kbmonline.helper.Config
 import com.iavariav.kbmonline.model.PemesananModel
 import com.iavariav.kbmonline.rest.ApiConfig
 import com.iavariav.kbmonline.ui.atasan.activity.AtasanActivity
-import com.iavariav.kbmonline.ui.atasan.activity.EditPemesananActivity
 
 import org.json.JSONException
 import org.json.JSONObject
@@ -126,30 +124,30 @@ class AtasanAprovalAdapter(private val context: Context, private val pemesananMo
         holder.ivDitolak.setOnClickListener { updateDatas(pemesananModels[position].idpemesanan, id, "NOT APPROVED", "Pesanan anda ditolak oleh Pimpinan") }
 
         holder.cvKlik.setOnClickListener {
-            val intent = Intent(context, EditPemesananActivity::class.java)
-            intent.putExtra(Config.BUNDLE_JENIS_KEPERLUAN, pemesananModels[position].jeniskeperluan)
-            intent.putExtra(Config.BUNDLE_JENIS_PEMESANAN, pemesananModels[position].jenispemesanan)
-            intent.putExtra(Config.BUNDLE_JENIS_KENDARAAN, pemesananModels[position].jeniskendaraan)
-            intent.putExtra(Config.BUNDLE_KEBERANGKATAN_KAWASAN, pemesananModels[position].keberangkatankawasan)
-            intent.putExtra(Config.BUNDLE_KEBERANGKATAN_WITEL, pemesananModels[position].keberangkatanwitel)
-            intent.putExtra(Config.BUNDLE_KEBERANGKATAN_AREA_POOL, pemesananModels[position].keberangkatanareapool)
-            intent.putExtra(Config.BUNDLE_TUJUAN_ALAMAT_JEMPUT, pemesananModels[position].tujuanalamatjemput)
-            intent.putExtra(Config.BUNDLE_TUJUAN_AREA, pemesananModels[position].tujuanarea)
-            intent.putExtra(Config.BUNDLE_TUJUAN_ALAMAT_DETAIL_MAPS, pemesananModels[position].tujuanalamatdetailmaps)
-            intent.putExtra(Config.BUNDLE_LAT_AWAL, pemesananModels[position].latawal)
-            intent.putExtra(Config.BUNDLE_LONG_AWAL, pemesananModels[position].longawal)
-            intent.putExtra(Config.BUNDLE_LAT_TUJUAN, pemesananModels[position].lattujuan)
-            intent.putExtra(Config.BUNDLE_LONG_TUJUAN, pemesananModels[position].longtujuan)
-            intent.putExtra(Config.BUNDLE_WAKTU_KEBERANGKATAN, pemesananModels[position].waktukeberangkatan)
-            intent.putExtra(Config.BUNDLE_WAKTU_KEPULANGAN, pemesananModels[position].waktukepulangan)
-            intent.putExtra(Config.BUNDLE_NO_TELEPON_KANTOR, pemesananModels[position].noteleponkantor)
-            intent.putExtra(Config.BUNDLE_NO_HP, pemesananModels[position].nohp)
-            intent.putExtra(Config.BUNDLE_JUMLAH_PENUMPANG, pemesananModels[position].jumlahpenumpang)
-            intent.putExtra(Config.BUNDLE_ISI_PENUMPANG, pemesananModels[position].isipenumpang)
-            intent.putExtra(Config.BUNDLE_KETERANGAN, pemesananModels[position].keterangan)
-            intent.putExtra(Config.BUNDLE_JARAK_PER_KM, pemesananModels[position].jarakperkm)
-            intent.putExtra(Config.BUNDLE_BENSIN_PER_LITER, pemesananModels[position].bensinperliter)
-            intent.putExtra(Config.BUNDLE_REG_TOKEN_PEMESANAN, pemesananModels[position].regtokenpemesanan)
+//            val intent = Intent(context, EditPemesananActivity::class.java)
+//            intent.putExtra(Config.BUNDLE_JENIS_KEPERLUAN, pemesananModels[position].jeniskeperluan)
+//            intent.putExtra(Config.BUNDLE_JENIS_PEMESANAN, pemesananModels[position].jenispemesanan)
+//            intent.putExtra(Config.BUNDLE_JENIS_KENDARAAN, pemesananModels[position].jeniskendaraan)
+//            intent.putExtra(Config.BUNDLE_KEBERANGKATAN_KAWASAN, pemesananModels[position].keberangkatankawasan)
+//            intent.putExtra(Config.BUNDLE_KEBERANGKATAN_WITEL, pemesananModels[position].keberangkatanwitel)
+//            intent.putExtra(Config.BUNDLE_KEBERANGKATAN_AREA_POOL, pemesananModels[position].keberangkatanareapool)
+//            intent.putExtra(Config.BUNDLE_TUJUAN_ALAMAT_JEMPUT, pemesananModels[position].tujuanalamatjemput)
+//            intent.putExtra(Config.BUNDLE_TUJUAN_AREA, pemesananModels[position].tujuanarea)
+//            intent.putExtra(Config.BUNDLE_TUJUAN_ALAMAT_DETAIL_MAPS, pemesananModels[position].tujuanalamatdetailmaps)
+//            intent.putExtra(Config.BUNDLE_LAT_AWAL, pemesananModels[position].latawal)
+//            intent.putExtra(Config.BUNDLE_LONG_AWAL, pemesananModels[position].longawal)
+//            intent.putExtra(Config.BUNDLE_LAT_TUJUAN, pemesananModels[position].lattujuan)
+//            intent.putExtra(Config.BUNDLE_LONG_TUJUAN, pemesananModels[position].longtujuan)
+//            intent.putExtra(Config.BUNDLE_WAKTU_KEBERANGKATAN, pemesananModels[position].waktukeberangkatan)
+//            intent.putExtra(Config.BUNDLE_WAKTU_KEPULANGAN, pemesananModels[position].waktukepulangan)
+//            intent.putExtra(Config.BUNDLE_NO_TELEPON_KANTOR, pemesananModels[position].noteleponkantor)
+//            intent.putExtra(Config.BUNDLE_NO_HP, pemesananModels[position].nohp)
+//            intent.putExtra(Config.BUNDLE_JUMLAH_PENUMPANG, pemesananModels[position].jumlahpenumpang)
+//            intent.putExtra(Config.BUNDLE_ISI_PENUMPANG, pemesananModels[position].isipenumpang)
+//            intent.putExtra(Config.BUNDLE_KETERANGAN, pemesananModels[position].keterangan)
+//            intent.putExtra(Config.BUNDLE_JARAK_PER_KM, pemesananModels[position].jarakperkm)
+//            intent.putExtra(Config.BUNDLE_BENSIN_PER_LITER, pemesananModels[position].bensinperliter)
+//            intent.putExtra(Config.BUNDLE_REG_TOKEN_PEMESANAN, pemesananModels[position].regtokenpemesanan)
 //            context?.startActivity(intent)
         }
 

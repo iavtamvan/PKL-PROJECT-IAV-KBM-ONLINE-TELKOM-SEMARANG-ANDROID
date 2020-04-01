@@ -4,8 +4,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.iavariav.kbmonline.model.ErrorModel;
-import com.iavariav.kbmonline.rest.ApiConfig;
-import com.iavariav.kbmonline.rest.ApiService;
+import com.iavariav.kbmonline.rest.serverUpgris.ApiConfig;
+import com.iavariav.kbmonline.rest.serverUpgris.ApiService;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -33,11 +33,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCRYz8BxCxqQ8-51X-zUhgMSW-F7_9egHM" />
 
-<!--            android:value="AIzaSyCxkXHGih2KXdW6N-CWDJ4SYKdrsNitkNc" />-->
-<!--            android:value="AIzaSyA8_KDH9uDWpoKs8G7Z3UAqlxxBZ-DLKSc" />-->
         <service android:name=".service.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="AIzaSyA8_KDH9uDWpoKs8G7Z3UAqlxxBZ-DLKSc" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service android:name=".service.MyFirebaseInstanceIDService">

@@ -1,4 +1,4 @@
-package com.iavariav.kbmonline.rest.uploadImage;
+package com.iavariav.kbmonline.rest.serverIndiku;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -10,7 +10,7 @@ import retrofit2.http.Part;
  * Created by LENOVO on 25/10/2017.
  */
 
-public interface    APIServiceUploadImage {
+public interface APIServiceUploadImage {
 
     @Multipart
     @POST("upload.php")

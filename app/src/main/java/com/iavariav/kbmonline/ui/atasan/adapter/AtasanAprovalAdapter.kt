@@ -14,7 +14,7 @@ import com.iavariav.kbmonline.R
 import com.iavariav.kbmonline.algoritma.Vigenere
 import com.iavariav.kbmonline.helper.Config
 import com.iavariav.kbmonline.model.PemesananModel
-import com.iavariav.kbmonline.rest.ApiConfig
+import com.iavariav.kbmonline.rest.serverUpgris.ApiConfig
 import com.iavariav.kbmonline.ui.atasan.activity.AtasanActivity
 
 import org.json.JSONException
@@ -80,6 +80,7 @@ class AtasanAprovalAdapter(private val context: Context, private val pemesananMo
         val sharedPreferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE)
         id = sharedPreferences.getString(Config.SHARED_PREF_ID, "")
         key = sharedPreferences.getString(Config.SHARED_PREF_KEY_ENCRYPT, "")
+        regId = pemesananModels[position].regid
 
 //        regToken = vigenere.decryptAlgorithm(pemesananModels.get(position).getREGTOKENPEMESANAN(), key);
         nama = vigenere!!.decryptAlgorithm(pemesananModels[position].namapemesan, key)
@@ -117,7 +118,7 @@ class AtasanAprovalAdapter(private val context: Context, private val pemesananMo
         // jika disetujui
         holder.ivDisetujui.setOnClickListener {
             //                Toast.makeText(context, "Disetujui" + pemesananModels.get(position).getIDPEMESANAN() + "id : " + id, Toast.LENGTH_SHORT).show();
-            updateDatas(pemesananModels[position].idpemesanan, id, "APPROVED", "Pesanan anda disetujui Pimpinan")
+            updateDatas(pemesananModels[position].idpemesanan, id, "APPROVED", "Pesanan anda disetujui Oleh Pimpinan")
         }
 
         // jika ditolak
@@ -161,7 +162,7 @@ class AtasanAprovalAdapter(private val context: Context, private val pemesananMo
                         if (response.isSuccessful) {
                             try {
                                 val jsonObject = JSONObject(response.body()!!.string())
-                                Config.pushNotif(context, "Status Pemesanan", message, "individual", regId)
+                                Config.pushNotif(context, "Status Pemesanan Anda ("+ keternangan + ")", message, "individual", regId)
                                 (context as AtasanActivity).setData()
                             } catch (e: JSONException) {
                                 e.printStackTrace()

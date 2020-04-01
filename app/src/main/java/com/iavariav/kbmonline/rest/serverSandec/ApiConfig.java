@@ -1,4 +1,4 @@
-package com.iavariav.kbmonline.rest;
+package com.iavariav.kbmonline.rest.serverSandec;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -7,12 +7,10 @@ public class ApiConfig {
 
     public static ApiService getApiService(){
         Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("http://192.168.43.76/~mac/kbm_online/")
-                .baseUrl("http://sig.upgris.ac.id/api_iav/kbm_online/")
+                .baseUrl("http://sandec.org/iav/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        ApiService service =retrofit.create(ApiService.class);
-        return service;
+        return retrofit.create(ApiService.class);
     }
 }

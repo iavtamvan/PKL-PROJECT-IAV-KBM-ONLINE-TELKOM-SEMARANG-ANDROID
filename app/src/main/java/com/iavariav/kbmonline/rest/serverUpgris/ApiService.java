@@ -1,4 +1,4 @@
-package com.iavariav.kbmonline.rest;
+package com.iavariav.kbmonline.rest.serverUpgris;
 
 import com.iavariav.kbmonline.model.ErrorModel;
 import com.iavariav.kbmonline.model.LoginModel;
@@ -143,16 +143,6 @@ public interface ApiService {
 //            @Query("id_user_validator") String idUser
 //    );
 //
-
-
-    @GET("firebase")
-    Call<ResponseBody> postDataNotif(
-            @Query("title") String title,
-            @Query("message") String message,
-            @Query("push_type") String push_type,
-            @Query("regId") String regId
-
-    );
 
 
 }

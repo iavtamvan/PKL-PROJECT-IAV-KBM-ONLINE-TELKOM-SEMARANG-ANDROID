@@ -1,4 +1,4 @@
-package com.iavariav.kbmonline.rest.uploadImage;
+package com.iavariav.kbmonline.rest.serverIndiku;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

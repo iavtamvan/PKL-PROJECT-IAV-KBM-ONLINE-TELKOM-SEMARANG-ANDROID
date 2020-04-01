@@ -34,8 +34,8 @@ import com.iavariav.kbmonline.helper.Config;
 import com.iavariav.kbmonline.algoritma.Vigenere;
 import com.iavariav.kbmonline.algoritma.Haversine;
 import com.iavariav.kbmonline.model.MobilModel;
-import com.iavariav.kbmonline.rest.ApiConfig;
-import com.iavariav.kbmonline.rest.ApiService;
+import com.iavariav.kbmonline.rest.serverUpgris.ApiConfig;
+import com.iavariav.kbmonline.rest.serverUpgris.ApiService;
 import com.iavariav.kbmonline.ui.user.presenter.PemesananUserPresenter;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
@@ -53,9 +53,6 @@ import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
-import static java.lang.Math.acos;
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -310,7 +307,7 @@ public class PemesananMobilFragment extends Fragment {
         spnJenisPemesanan.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override
-            public void onItemSelected(MaterialSpinner view, final int position, long id, String item) {
+            public void onItemSelected(final MaterialSpinner view, final int position, long id, String item) {
                 jenisPemesananSave = item;
                 encryptJenisPemesananSave = vigenere.encryptAlgorithm(jenisPemesananSave, keyEncrypt);
                 Snackbar.make(view, "Memilih " + jenisPemesananSave, Snackbar.LENGTH_LONG).show();
@@ -323,9 +320,15 @@ public class PemesananMobilFragment extends Fragment {
                                 if (response.isSuccessful()) {
                                     mobilModels = response.body();
                                     for (int i = 0; i < mobilModels.size(); i++) {
-                                        spnJenisMobil.setItems(mobilModels.get(i).getTYPEMOBIL() + " " + mobilModels.get(i).getPLATMOBIL());
-                                        encryptJenisPemesananMobilSave = vigenere.encryptAlgorithm(mobilModels.get(i).getTYPEMOBIL() + " " + mobilModels.get(i).getPLATMOBIL(), keyEncrypt);
+                                        if (mobilModels.toString().isEmpty()){
+                                            spnJenisMobil.setItems("Mobil atau Sopir tidak tersedia");
+                                            Snackbar.make(view, "Mobil atau Sopir tidak tersedia", Snackbar.LENGTH_LONG).show();
+                                        } else {
+                                            spnJenisMobil.setItems(mobilModels.get(i).getTYPEMOBIL() + " || " + mobilModels.get(i).getPLATMOBIL() + " || " + mobilModels.get(i).getNAMASUPIR());
+                                            encryptJenisPemesananMobilSave = vigenere.encryptAlgorithm(mobilModels.get(i).getTYPEMOBIL() + " " + mobilModels.get(i).getPLATMOBIL(), keyEncrypt);
 
+//                                            Toast.makeText(getActivity(), "Else", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
 
                                     spnJenisMobil.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
@@ -495,8 +498,9 @@ public class PemesananMobilFragment extends Fragment {
         btnPesanSekarang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (edtKeterangan.getText().toString().isEmpty() || edtIsiPenumpang.getText().toString().isEmpty()){
-                    Toast.makeText(getActivity(), "Lengkap data pemesanan", Toast.LENGTH_SHORT).show();
+                if (edtKeterangan.getText().toString().isEmpty() || edtIsiPenumpang.getText().toString().isEmpty() || edtNoHp.getText().toString().isEmpty()
+                || edtNoTeleponKantor.getText().toString().isEmpty() || edtPenjemputan.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity(), "Lengkapi data pemesanan", Toast.LENGTH_SHORT).show();
                 } else {
                     pemesananUserPresenter.dataUserPemesanan(
                             getActivity(),

@@ -3,8 +3,8 @@ package com.iavariav.kbmonline.ui.atasan.presenter;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.iavariav.kbmonline.rest.ApiConfig;
-import com.iavariav.kbmonline.rest.ApiService;
+import com.iavariav.kbmonline.rest.serverUpgris.ApiConfig;
+import com.iavariav.kbmonline.rest.serverUpgris.ApiService;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

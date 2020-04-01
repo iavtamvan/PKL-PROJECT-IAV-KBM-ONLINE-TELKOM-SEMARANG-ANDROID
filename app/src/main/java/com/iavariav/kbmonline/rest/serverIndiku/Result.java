@@ -1,4 +1,4 @@
-package com.iavariav.kbmonline.rest.uploadImage;
+package com.iavariav.kbmonline.rest.serverIndiku;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
+import com.iavariav.kbmonline.rest.serverSandec.ApiConfig;
+import com.iavariav.kbmonline.rest.serverSandec.ApiService;
 import com.iavariav.kbmonline.ui.login.LoginActivity;
-import com.iavariav.kbmonline.rest.ApiConfig;
-import com.iavariav.kbmonline.rest.ApiService;
 
 import org.json.JSONException;
 import org.json.JSONObject;

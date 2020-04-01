@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "7094268372",
-    "firebase_url": "https://khusus-push-notif.firebaseio.com",
-    "project_id": "khusus-push-notif",
-    "storage_bucket": "khusus-push-notif.appspot.com"
+    "project_number": "911760915108",
+    "firebase_url": "https://skripsi2020-7bad8.firebaseio.com",
+    "project_id": "skripsi2020-7bad8",
+    "storage_bucket": "skripsi2020-7bad8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:7094268372:android:6a67e8ecfc6089cf",
+        "mobilesdk_app_id": "1:911760915108:android:0d32cbda2264a9fc964431",
         "android_client_info": {
           "package_name": "com.iavariav.kbmonline"
         }
       },
       "oauth_client": [
         {
-          "client_id": "7094268372-3dqf4bvir328e57eoljn10d1v99m0pbg.apps.googleusercontent.com",
+          "client_id": "911760915108-jdseva41bqscm20aiir6jo4c4s0eg551.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iavariav.kbmonline",
+            "certificate_hash": "78312e9032422adc05f72f2ca67c692322a79ce7"
+          }
+        },
+        {
+          "client_id": "911760915108-bc9jpsgpimm3ekpo3n4qos8qphn8dd20.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA8_KDH9uDWpoKs8G7Z3UAqlxxBZ-DLKSc"
+          "current_key": "AIzaSyCjo4740P5iQxtvzUtAjDsEHwVJdHSjb2M"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "7094268372-3dqf4bvir328e57eoljn10d1v99m0pbg.apps.googleusercontent.com",
+              "client_id": "911760915108-bc9jpsgpimm3ekpo3n4qos8qphn8dd20.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -43,7 +43,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Jenis Pemesanan"
+                    android:text="Jenis Pemesanan Kendaraan"
                     android:textStyle="bold"
                     android:fontFamily="@font/bree_serif"/>
                 <com.jaredrummler.materialspinner.MaterialSpinner
@@ -64,7 +64,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Mobil"
+                    android:text="Jenis Kendaraan"
                     android:textStyle="bold"
                     android:fontFamily="@font/bree_serif"/>
                 <com.jaredrummler.materialspinner.MaterialSpinner

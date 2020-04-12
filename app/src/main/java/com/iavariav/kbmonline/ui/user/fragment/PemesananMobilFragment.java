@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -556,11 +557,16 @@ public class PemesananMobilFragment extends Fragment {
                     encryptLatitudeTujuan = vigenere.encryptAlgorithm(String.valueOf(latitudeTujuan), keyEncrypt);
                     longitudeTUjuan = place.getLatLng().longitude;
                     encryptLongitudeTUjuan = vigenere.encryptAlgorithm(String.valueOf(longitudeTUjuan), keyEncrypt);
+                    Log.d("haversine", "LatitudeAwal : " + latitudeBerangkat);
+                    Log.d("haversine", "LongitudeAwal : " + longitudeBerangkat);
+                    Log.d("haversine", "LatitudeTujuan : " + latitudeTujuan);
+                    Log.d("haversine", "LongitudeTujuan : " + longitudeTUjuan);
 
 //                    tvAlamatDetail.setText(placeName + ", " + placeNameAdress);
 //                    getDistance(latitudeBerangkat, longitudeBerangkat, latitudeTujuan, longitudeTUjuan);
                     hitungJarak = Haversine.hitungJarak(latitudeBerangkat, longitudeBerangkat, latitudeTujuan, longitudeTUjuan);
                     stringJarak = String.format("%.2f", hitungJarak);// mslh
+                    Log.d("haversine", "Hasil : " + stringJarak);
 //                    encryptStringJarak = vigenere.encryptAlgorithm(String.valueOf(stringJarak), keyEncrypt);
 //                    hitungHargaBBM = (Double.parseDouble(stringJarak) / 11) * 7650;
 //                    encryptHitungHargaBBM = vigenere.encryptAlgorithm(String.valueOf(hitungHargaBBM), keyEncrypt);

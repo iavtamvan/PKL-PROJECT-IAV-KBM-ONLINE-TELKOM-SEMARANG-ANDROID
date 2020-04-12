@@ -33,7 +33,7 @@ public class HistoriAtasanPresenter {
                         if (response.isSuccessful()){
                             pemesananModels = response.body();
                             atasanHistoriAprovalAdapter = new AtasanHistoriAprovalAdapter(context, pemesananModels);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, true));
+                            recyclerView.setLayoutManager(new LinearLayoutManager(context));
                             recyclerView.setAdapter(atasanHistoriAprovalAdapter);
                             atasanHistoriAprovalAdapter.notifyDataSetChanged();
 
